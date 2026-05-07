@@ -23,43 +23,132 @@ Before you start, make sure you have:
 ### 1. Clone the Repository
 
 ```bash
-git clone [https://github.com/YOUR_USERNAME/VisionFit.git](https://github.com/YOUR_USERNAME/VisionFit.git)
-cd VisionFit
+git clone https://github.com/Fadilullah-Almohammed/VisionFit-AI.git
+cd VisionFit-AI
 ```
-### 2. Create a Virtual Environment
-It is highly recommended to use a virtual environment to keep dependencies isolated.
 
-For Windows:
+---
 
-```Bash
-# Create the environment
+### 2. Create & Activate a Virtual Environment
+
+A virtual environment keeps all dependencies isolated from the rest of your system. **Do this before installing anything.**
+
+**Windows:**
+```bash
 python -m venv .venv
 .venv\Scripts\activate
 ```
-For macOS / Linux:
 
-```Bash
-# Create the environment
+**macOS / Linux:**
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
 ```
-You will know it worked if you see (.venv) appear at the start of your terminal line.
+
+✅ You'll know it's working when you see `(.venv)` at the start of your terminal line.
+
+---
 
 ### 3. Install Dependencies
-Install all required libraries (Flask, OpenCV, MediaPipe, etc.) using pip:
 
-```Bash
+With the virtual environment active, run:
+
+```bash
 pip install -r requirements.txt
 ```
-### 4. How to Run
 
-Start the Application:
-Make sure your virtual environment is activated, then run:
+> ⚠️ **Do not upgrade MediaPipe.** The `requirements.txt` pins `mediapipe==0.10.9` intentionally — newer versions (0.10.15+) removed the pose detection API used in this project and will cause an `AttributeError` crash on startup.
 
-```Bash
+---
+
+### 4. Download the Model Files
+
+These model files are too large for Git and must be downloaded separately. Place both files in the **root of the project folder** (same folder as `app.py`).
+
+#### MediaPipe Pose Model — `pose_landmarker.task`
+
+**Windows (PowerShell):**
+```powershell
+Invoke-WebRequest -Uri "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/latest/pose_landmarker_lite.task" -OutFile "pose_landmarker.task"
+```
+
+**macOS / Linux:**
+```bash
+curl -o pose_landmarker.task "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/latest/pose_landmarker_lite.task"
+```
+
+#### YOLO Pose Model — `yolo11n-pose.pt`
+
+**Windows (PowerShell):**
+```powershell
+Invoke-WebRequest -Uri "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n-pose.pt" -OutFile "yolo11n-pose.pt"
+```
+
+**macOS / Linux:**
+```bash
+curl -L -o yolo11n-pose.pt "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n-pose.pt"
+```
+
+---
+
+### 5. Verify Your Setup
+
+Your project folder should look like this before running:
+
+```
+VisionFit-AI/
+├── app.py
+├── pose_module.py
+├── pose_landmarker.task    ← downloaded in step 4
+├── yolo11n-pose.pt         ← downloaded in step 4
+├── requirements.txt
+└── templates/
+    └── index.html
+```
+
+---
+
+## ▶️ Running the App
+
+Make sure your virtual environment is **active** (`(.venv)` visible in terminal), then run:
+
+```bash
 python app.py
 ```
-Open the Dashboard:
-You will see a message saying Running on http://127.0.0.1:5000.
-Open your web browser and navigate to:
+
+Open your browser and go to:
+
+```
 http://127.0.0.1:5000
+```
+
+---
+
+## 🎯 Features
+
+| Feature | Description |
+|---|---|
+| **Live Webcam** | Real-time pose tracking via your webcam |
+| **YouTube Mode** | Analyze form from a YouTube video URL |
+| **Rep Counter** | Counts valid push-up reps automatically |
+| **Form Feedback** | Flags posture errors in real time |
+| **MediaPipe Backend** | Lightweight, CPU-friendly pose detection |
+
+---
+
+## 🛠️ Troubleshooting
+
+**`AttributeError: module 'mediapipe' has no attribute 'solutions'`**
+→ Wrong MediaPipe version installed. Fix it with:
+```bash
+pip install mediapipe==0.10.9
+```
+
+**Webcam not opening / black screen**
+→ Make sure no other app (e.g. Zoom, Teams) is using your webcam. If you have multiple cameras, try changing `cv2.VideoCapture(0)` to `cv2.VideoCapture(1)` in `app.py`.
+
+**`ModuleNotFoundError`**
+→ Your virtual environment is not active. Run `.venv\Scripts\activate` (Windows) or `source .venv/bin/activate` (macOS/Linux) first.
+
+**`pip install` fails or installs wrong versions**
+→ Make sure you're inside the virtual environment before running `pip install -r requirements.txt`. Check with `where python` (Windows) — it should point to your `.venv` folder.
