@@ -1,16 +1,33 @@
+# Virtual environments
 .venv/
 venv/
 env/
 
+# Python cache
 __pycache__/
 *.py[cod]
 
+# IDE configs
 .vscode/
 .idea/
 
+# OS files
+.DS_Store
+Thumbs.db
+
+# Large model weights (download separately)
+*.pt
+*.task
+*.weights
+*.onnx
+
+# Video files
 *.mp4
 *.avi
 *.mov
 
-.DS_Store
-Thumbs.db
+# Misc scratch / experimental files
+claude.py
+create_video.py
+learning/
+walkthrough/
