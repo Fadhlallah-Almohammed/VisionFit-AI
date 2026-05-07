@@ -1,29 +1,27 @@
-# 🏋️‍♂️ VisionFit Professional — AI Fitness Trainer
+# 🏋️‍♂️ VisionFit — AI Fitness Trainer
 
-**VisionFit** is a professional AI-powered fitness dashboard that analyzes exercise form in real time using computer vision.
+**VisionFit** is an AI-powered fitness dashboard that analyzes your exercise form in real time using computer vision.
 
-It tracks body movements, counts repetitions accurately, and provides instant corrective feedback such as:
-- “Lower Hips”
-- “Tuck Elbows”
-- “Align Head”
-
-
----
-
-## 🛠️ Prerequisites
-
-Make sure you have the following installed:
-- **Python 3.8** or higher
-- **Git**
+It tracks body movements via your webcam (or a YouTube video), counts reps, and gives instant corrective feedback such as:
+- *"Lower Hips"* — body is not aligned
+- *"Tuck Elbows"* — elbows flaring out
+- *"Head Too Low"* — neck out of neutral
 
 ---
 
-## 🚀 Installation Guide
+## 📋 Prerequisites
 
-Follow these steps to set up the project on your local machine.
+Before you start, make sure you have:
+- **Python 3.10 or 3.11** — [Download here](https://www.python.org/downloads/) *(3.12+ is not yet supported by MediaPipe)*
+- **Git** — [Download here](https://git-scm.com/downloads)
+- A **webcam** connected to your computer
+
+---
+
+## 🚀 Setup Guide
 
 ### 1. Clone the Repository
-Open your terminal or command prompt and run:
+
 ```bash
 git clone [https://github.com/YOUR_USERNAME/VisionFit.git](https://github.com/YOUR_USERNAME/VisionFit.git)
 cd VisionFit
@@ -36,8 +34,6 @@ For Windows:
 ```Bash
 # Create the environment
 python -m venv .venv
-
-# Activate the environment
 .venv\Scripts\activate
 ```
 For macOS / Linux:
@@ -45,8 +41,6 @@ For macOS / Linux:
 ```Bash
 # Create the environment
 python3 -m venv .venv
-
-# Activate the environment
 source .venv/bin/activate
 ```
 You will know it worked if you see (.venv) appear at the start of your terminal line.
